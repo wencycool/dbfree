@@ -4,6 +4,7 @@ import (
 	"database/sql"
 	"fmt"
 	"github.com/go-sql-driver/mysql"
+	"time"
 )
 
 func newDBConn(host string, port int, user, password string) (*sql.DB, error) {
@@ -15,7 +16,7 @@ func newDBConn(host string, port int, user, password string) (*sql.DB, error) {
 		DBName:                  "mysql",
 		Params:                  nil,
 		Collation:               "",
-		Loc:                     nil,
+		Loc:                     time.Local,
 		MaxAllowedPacket:        25 << 20,
 		ServerPubKey:            "",
 		TLSConfig:               "",
@@ -30,7 +31,7 @@ func newDBConn(host string, port int, user, password string) (*sql.DB, error) {
 		ColumnsWithAlias:        false,
 		InterpolateParams:       false,
 		MultiStatements:         false,
-		ParseTime:               false,
+		ParseTime:               true,
 		RejectReadOnly:          false,
 	}
 	db, err := sql.Open("mysql", cfg.FormatDSN())
